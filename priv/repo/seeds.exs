@@ -29,7 +29,10 @@ topics_data = [
   %{name: "Travel", description: "Sharing travel experiences, tips, and destination ideas."},
   %{name: "History", description: "Exploring historical events, figures, and periods."},
   %{name: "Music", description: "Discussing various music genres, artists, and instruments."},
-  %{name: "Food", description: "Conversations about cuisine, recipes, and culinary experiences."}
+  %{
+    name: "Gastronomy",
+    description: "Conversations about cuisine, recipes, and culinary experiences."
+  }
 ]
 
 Enum.each(topics_data, fn topic_attrs ->

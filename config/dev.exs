@@ -8,7 +8,10 @@ config :cali, Cali.Repo,
   database: "cali_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: 10,
+  log: :debug
+
+# the log debug turns off database logging locally
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
