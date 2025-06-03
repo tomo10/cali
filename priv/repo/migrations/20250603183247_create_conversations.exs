@@ -7,8 +7,11 @@ defmodule Cali.Repo.Migrations.CreateConversations do
       add :difficulty_level, :integer
       add :language, :string
       add :status, :string, default: "active"
+      add :topic_id, references(:topics, on_delete: :nothing)
 
       timestamps(type: :utc_datetime)
     end
+
+    create index(:conversations, [:topic_id])
   end
 end

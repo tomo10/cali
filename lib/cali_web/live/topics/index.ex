@@ -3,7 +3,7 @@ defmodule CaliWeb.Topics.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :topics, ["Art", "Technology", "Science", "Health", "Travel"])}
+    {:ok, assign(socket, :topics, Cali.Topics.list_topics())}
   end
 
   @impl true
@@ -15,7 +15,7 @@ defmodule CaliWeb.Topics.Index do
           <h1 class="text-2xl font-bold mb-4">Topics</h1>
           <ul>
             <%= for topic <- @topics do %>
-              <li class="mb-2 badge badge-primary">{topic}</li>
+              <li class="mb-2 badge badge-primary">{topic.name}</li>
             <% end %>
           </ul>
         </div>

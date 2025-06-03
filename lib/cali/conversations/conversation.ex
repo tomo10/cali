@@ -1,6 +1,7 @@
 defmodule Cali.Conversations.Conversation do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Cali.Topics.Topic
 
   schema "conversations" do
     field :title, :string
@@ -8,14 +9,17 @@ defmodule Cali.Conversations.Conversation do
     field :difficulty_level, :integer
     field :status, Ecto.Enum, values: [:active, :completed, :archived], default: :active
 
+    belongs_to :topic, Topic
+
     timestamps(type: :utc_datetime)
   end
 
   @doc false
   def changeset(conversation, attrs) do
     conversation
-    |> cast(attrs, [:title, :difficulty_level, :language, :status])
-    |> validate_required([:title, :difficulty_level, :language, :status])
+    |> cast(attrs, [:title, :difficulty_level, :language, :status, :topic_id])
+    |> validate_required([:title, :difficulty_level, :language, :status, :topic_id])
     |> validate_number(:difficulty_level, greater_than: 0, less_than_or_equal_to: 10)
+    |> foreign_key_constraint(:topic_id)
   end
 end
