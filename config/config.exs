@@ -53,6 +53,10 @@ config :tailwind,
     cd: Path.expand("../assets", __DIR__)
   ]
 
+config :instructor,
+  adapter: Instructor.Adapters.OpenAI,
+  openai: [api_key: System.get_env("OPENAI_KEY")]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

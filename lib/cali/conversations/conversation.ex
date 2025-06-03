@@ -1,7 +1,19 @@
 defmodule Cali.Conversations.Conversation do
   use Ecto.Schema
   import Ecto.Changeset
+
+  use Instructor
   alias Cali.Topics.Topic
+
+  @llm_doc """
+  Represents a conversation in the Cali application, which is associated with a specific topic.
+
+  ## Fields
+    - `:title` The title of the conversation.
+    - `:language` The language of the conversation.
+    - `:difficulty_level` The difficulty level of the conversation, ranging from 1 to 10.
+    - `:status` The status of the conversation, which can be `:active`, `:completed`, or `:archived`.
+  """
 
   schema "conversations" do
     field :title, :string

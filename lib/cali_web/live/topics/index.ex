@@ -15,12 +15,35 @@ defmodule CaliWeb.Topics.Index do
           <h1 class="text-2xl font-bold mb-4">Topics</h1>
           <ul>
             <%= for topic <- @topics do %>
-              <li class="mb-2 badge badge-primary">{topic.name}</li>
+              <button class="btn m-1 bg-primary" phx-click="select-topic" phx-value-id={topic.id}>
+                {topic.name}
+              </button>
             <% end %>
           </ul>
         </div>
       </div>
     </div>
     """
+  end
+
+  @impl true
+  def handle_event("select-topic", %{"id" => id}, socket) do
+    topic = Cali.Topics.get_topic!(id)
+
+    {:ok, res} =
+      Instructor.chat_completion(
+        model: "gpt-4o-mini",
+        response_model: Cali.Conversations.Conversation,
+        messages: [
+          %{
+            role: "user",
+            content:
+              "Please give me a conversation title based on the following topic #{topic.name}."
+          },
+          %{role: "user", content: "The topic is about #{topic.description}."}
+        ]
+      )
+
+    {:noreply, assign(socket, :selected_topic, topic)}
   end
 end
