@@ -15,30 +15,30 @@ alias Cali.Topics.Topic
 
 topics_data = [
   %{
-    name: "Science",
+    title: "Science",
     description: "Discussions about scientific discoveries, theories, and news."
   },
-  %{name: "Art", description: "Exploring various forms of art, artists, and art history."},
-  %{name: "Sport", description: "Conversations about different sports, athletes, and events."},
-  %{name: "News", description: "Discussing current events and news from around the world."},
+  %{title: "Art", description: "Exploring various forms of art, artists, and art history."},
+  %{title: "Sport", description: "Conversations about different sports, athletes, and events."},
+  %{title: "News", description: "Discussing current events and news from around the world."},
   %{
-    name: "Philosophy",
+    title: "Philosophy",
     description: "Delving into philosophical questions, theories, and thinkers."
   },
-  %{name: "Technology", description: "Talking about the latest in tech, gadgets, and software."},
-  %{name: "Travel", description: "Sharing travel experiences, tips, and destination ideas."},
-  %{name: "History", description: "Exploring historical events, figures, and periods."},
-  %{name: "Music", description: "Discussing various music genres, artists, and instruments."},
+  %{title: "Technology", description: "Talking about the latest in tech, gadgets, and software."},
+  %{title: "Travel", description: "Sharing travel experiences, tips, and destination ideas."},
+  %{title: "History", description: "Exploring historical events, figures, and periods."},
+  %{title: "Music", description: "Discussing various music genres, artists, and instruments."},
   %{
-    name: "Gastronomy",
+    title: "Gastronomy",
     description: "Conversations about cuisine, recipes, and culinary experiences."
   }
 ]
 
 Enum.each(topics_data, fn topic_attrs ->
-  case Repo.get_by(Topic, name: topic_attrs.name) do
+  case Repo.get_by(Topic, title: topic_attrs.title) do
     nil -> Repo.insert!(%Topic{} |> Topic.changeset(topic_attrs))
-    _existing_topic -> IO.puts("Topic \"#{topic_attrs.name}\" already exists. Skipping.")
+    _existing_topic -> IO.puts("Topic \"#{topic_attrs.title}\" already exists. Skipping.")
   end
 end)
 

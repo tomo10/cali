@@ -3,8 +3,9 @@ defmodule Cali.Repo.Migrations.CreateTopics do
 
   def change do
     create table(:topics) do
-      add :name, :string
+      add :title, :string
       add :description, :text
+      add :sub_topics, :jsonb, default: fragment("'[]'::jsonb")
 
       timestamps(type: :utc_datetime)
     end
