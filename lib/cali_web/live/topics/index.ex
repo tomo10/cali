@@ -10,9 +10,9 @@ defmodule CaliWeb.Topics.Index do
   def render(assigns) do
     ~H"""
     <div class="p-4 bg-base-100">
-      <h1 class="text-2xl font-bold mb-4">Topics</h1>
-      <div class="card w-96 bg-base-100 shadow-xl">
+      <div class="card w-96 bg-base-200 shadow-xl">
         <div class="card-body">
+          <h1 class="text-2xl font-bold mb-4">Topics</h1>
           <ul>
             <%= for topic <- @topics do %>
               <li class="mb-2 badge badge-primary">{topic}</li>
