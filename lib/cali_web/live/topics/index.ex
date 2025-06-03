@@ -1,61 +1,53 @@
 defmodule CaliWeb.Topics.Index do
   use CaliWeb, :live_view
 
+  @dummy_data [
+    %Cali.Topics.SubTopic{
+      id: 1,
+      title: "Music Genres",
+      description:
+        "A discussion on various music genres including pop, rock, jazz, classical, and hip-hop.",
+      inserted_at: ~U[2024-07-20 12:00:00Z],
+      updated_at: ~U[2024-07-20 12:00:00Z]
+    },
+    %Cali.Topics.SubTopic{
+      id: 2,
+      title: "Famous Artists",
+      description:
+        "Insights into well-known artists from different genres, including their influence and impact on music.",
+      inserted_at: ~U[2024-07-20 12:00:00Z],
+      updated_at: ~U[2024-07-20 12:00:00Z]
+    },
+    %Cali.Topics.SubTopic{
+      id: 3,
+      title: "Musical Instruments",
+      description:
+        "Discussion about various musical instruments and their roles in different genres of music.",
+      inserted_at: ~U[2024-07-20 12:00:00Z],
+      updated_at: ~U[2024-07-20 12:00:00Z]
+    },
+    %Cali.Topics.SubTopic{
+      id: 4,
+      title: "Music Theory",
+      description:
+        "An overview of music theory concepts, including scales, harmony, and composition techniques.",
+      inserted_at: ~U[2024-07-20 12:00:00Z],
+      updated_at: ~U[2024-07-20 12:00:00Z]
+    },
+    %Cali.Topics.SubTopic{
+      id: 5,
+      title: "Cultural Influence of Music",
+      description:
+        "Exploring how music influences and is influenced by culture, traditions, and social movements.",
+      inserted_at: ~U[2024-07-20 12:00:00Z],
+      updated_at: ~U[2024-07-20 12:00:00Z]
+    }
+  ]
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, topics: Cali.Topics.list_topics(), sub_topics: [], topic_title: "")}
-  end
-
-  @impl true
-  def render(assigns) do
-    ~H"""
-    <div class="p-4 bg-base-100">
-      <div class="card w-96 bg-base-200 shadow-xl">
-        <div class="card-body">
-          <h1 class="text-2xl font-bold mb-4">Topics</h1>
-          <ul>
-            <%= for topic <- @topics do %>
-              <button class="btn m-1 bg-primary" phx-click="select-topic" phx-value-id={topic.id}>
-                {topic.title}
-              </button>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <ul class="list bg-base-100 rounded-box shadow-md">
-      <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">{@topic_title}</li>
-
-      <li :for={sub_topic <- @sub_topics} class="list-row">
-        <div class="text-4xl font-thin opacity-30 tabular-nums">
-          {Integer.to_string(sub_topic.id)}
-        </div>
-        <div>
-          <img
-            class="size-10 rounded-box"
-            src="https://img.daisyui.com/images/profile/demo/1@94.webp"
-          />
-        </div>
-        <div class="list-col-grow">
-          <div>{sub_topic.title}</div>
-          <div class="text-xs uppercase font-semibold opacity-60">{sub_topic.description}</div>
-        </div>
-        <button class="btn btn-square btn-ghost">
-          <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path d="M6 3L20 12 6 21 6 3z"></path>
-            </g>
-          </svg>
-        </button>
-      </li>
-    </ul>
-    """
+    {:ok,
+     assign(socket, topics: Cali.Topics.list_topics(), sub_topics: @dummy_data, topic_title: "")}
   end
 
   @impl true
@@ -80,8 +72,14 @@ defmodule CaliWeb.Topics.Index do
         ]
       )
 
-    dbg(topic)
-
     {:noreply, assign(socket, sub_topics: topic.sub_topics, topic_title: topic.description)}
+  end
+
+  @impl true
+  def handle_event("select-sub-topic", %{"id" => id}, socket) do
+    sub_topic = Enum.find(socket.assigns.sub_topics, &(&1.id == String.to_integer(id)))
+    dbg(sub_topic)
+
+    {:noreply, socket}
   end
 end

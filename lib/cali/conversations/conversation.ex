@@ -19,6 +19,7 @@ defmodule Cali.Conversations.Conversation do
     field :title, :string
     field :language, :string
     field :difficulty_level, :integer
+    field :content, :string
     field :status, Ecto.Enum, values: [:active, :completed, :archived], default: :active
 
     belongs_to :topic, Topic
