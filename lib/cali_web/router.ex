@@ -20,6 +20,7 @@ defmodule CaliWeb.Router do
     get "/", PageController, :home
 
     live "/topics", Topics.Index, :index
+    live "/tablet", Tablet.Index, :index
   end
 
   # Other scopes may use custom stacks.

@@ -36,6 +36,46 @@ topics_data = [
   %{
     title: "Gastronomy",
     description: "Conversations about cuisine, recipes, and culinary experiences."
+  },
+  %{
+    title: "Environment",
+    description: "Topics about climate change, sustainability, and protecting nature."
+  },
+  %{
+    title: "Literature",
+    description: "Discussing books, authors, literary genres, and storytelling."
+  },
+  %{
+    title: "Education",
+    description: "Conversations about learning, teaching methods, and schools."
+  },
+  %{
+    title: "Business",
+    description: "Exploring entrepreneurship, startups, and business strategies."
+  },
+  %{
+    title: "Health",
+    description: "Topics about physical and mental health, wellness, and medicine."
+  },
+  %{
+    title: "Fashion",
+    description: "Discussing trends, designers, and the world of clothing and style."
+  },
+  %{
+    title: "Cinema",
+    description: "Conversations about movies, directors, actors, and film history."
+  },
+  %{
+    title: "Politics",
+    description: "Discussing political systems, elections, and current affairs."
+  },
+  %{
+    title: "Relationships",
+    description: "Topics about friendship, family, love, and social dynamics."
+  },
+  %{
+    title: "Science Fiction",
+    description: "Exploring futuristic concepts, technology, and imaginative worlds in fiction."
   }
 ]
 
