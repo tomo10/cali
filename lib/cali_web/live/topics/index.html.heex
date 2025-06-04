@@ -44,7 +44,14 @@
   <h1>{@conversation.title}</h1>
   <%= for {sentence, i} <- Enum.with_index(@conversation.translation) do %>
     <p class="tooltip my-2 cursor-pointer" data-tip={Enum.fetch!(@conversation.native, i)}>
-      {sentence}
+      <span
+        :for={word <- String.split(sentence, " ")}
+        phx-click="select-word"
+        phx-value-word={word}
+        class="text-xs opacity-60 pr-0.5"
+      >
+        {word}
+      </span>
     </p>
   <% end %>
 </article>

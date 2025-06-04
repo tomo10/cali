@@ -73,8 +73,7 @@ defmodule CaliWeb.Topics.Index do
           },
           %{
             role: "user",
-            content:
-              "The subtopics will be 2 examples and a variety based on #{topic.description}."
+            content: "The subtopics will be 2 examples based on #{topic.description}."
           }
         ]
       )
@@ -113,5 +112,12 @@ defmodule CaliWeb.Topics.Index do
     dbg(conversation)
 
     {:noreply, assign(socket, conversation: conversation)}
+  end
+
+  @impl true
+  def handle_event("select-word", %{"word" => word}, socket) do
+    dbg(word)
+
+    {:noreply, socket}
   end
 end

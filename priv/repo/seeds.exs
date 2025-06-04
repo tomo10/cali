@@ -19,8 +19,12 @@ topics_data = [
     description: "Discussions about scientific discoveries, theories, and news."
   },
   %{title: "Art", description: "Exploring various forms of art, artists, and art history."},
-  %{title: "Sport", description: "Conversations about different sports, athletes, and events."},
-  %{title: "News", description: "Discussing current events and news from around the world."},
+  %{
+    title: "Sport",
+    description:
+      "Conversations about different sports, athletes, and events. Can be news, hisotry of sport, or analysis of sports."
+  },
+  %{title: "News", description: "Give summaries of top recent news stories."},
   %{
     title: "Philosophy",
     description: "Delving into philosophical questions, theories, and thinkers."
