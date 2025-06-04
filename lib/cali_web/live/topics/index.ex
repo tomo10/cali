@@ -1,5 +1,7 @@
 defmodule CaliWeb.Topics.Index do
   use CaliWeb, :live_view
+  alias Cali.Topics.Topic
+  alias Cali.Conversations.Conversation
 
   @dummy_data [
     %Cali.Topics.SubTopic{
@@ -57,7 +59,7 @@ defmodule CaliWeb.Topics.Index do
     {:ok, topic} =
       Instructor.chat_completion(
         model: "gpt-4o-mini",
-        response_model: Cali.Topics.Topic,
+        response_model: Topic,
         messages: [
           %{
             role: "user",
@@ -75,11 +77,33 @@ defmodule CaliWeb.Topics.Index do
     {:noreply, assign(socket, sub_topics: topic.sub_topics, topic_title: topic.description)}
   end
 
+  # next thing to do is create conversation using Instructor the sub_topic as trigger
+  # however this might be a little slow and the user has to wait for the conversation to be created
+  # fully before render. might need to use that other library i have in portfolio
   @impl true
   def handle_event("select-sub-topic", %{"id" => id}, socket) do
     sub_topic = Enum.find(socket.assigns.sub_topics, &(&1.id == String.to_integer(id)))
     dbg(sub_topic)
 
-    {:noreply, socket}
+    {:ok, conversation} =
+      Instructor.chat_completion(
+        model: "gpt-4o-mini",
+        response_model: Conversation,
+        messages: [
+          %{
+            role: "user",
+            content: "Please give me a conversation for the following topic #{sub_topic.title}."
+          },
+          %{
+            role: "user",
+            content:
+              "Set the level of difficulty to 2, the language to Spanish (LATAM), and the status to active."
+          }
+        ]
+      )
+
+    dbg(conversation)
+
+    {:noreply, assign(socket, conversation: conversation)}
   end
 end
