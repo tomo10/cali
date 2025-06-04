@@ -30,6 +30,8 @@ defmodule Cali.Conversations.Conversation do
     timestamps(type: :utc_datetime)
   end
 
+  # todo think will want to make native and translation fields optional or an embedded_schema
+
   @doc false
   def changeset(conversation, attrs) do
     conversation

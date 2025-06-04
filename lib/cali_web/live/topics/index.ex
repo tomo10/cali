@@ -3,48 +3,24 @@ defmodule CaliWeb.Topics.Index do
   alias Cali.Topics.Topic
   alias Cali.Conversations.Conversation
 
-  @dummy_data [
-    %Cali.Topics.SubTopic{
-      id: 1,
-      title: "Music Genres",
-      description:
-        "A discussion on various music genres including pop, rock, jazz, classical, and hip-hop.",
-      inserted_at: ~U[2024-07-20 12:00:00Z],
-      updated_at: ~U[2024-07-20 12:00:00Z]
-    },
-    %Cali.Topics.SubTopic{
-      id: 2,
-      title: "Famous Artists",
-      description:
-        "Insights into well-known artists from different genres, including their influence and impact on music.",
-      inserted_at: ~U[2024-07-20 12:00:00Z],
-      updated_at: ~U[2024-07-20 12:00:00Z]
-    },
-    %Cali.Topics.SubTopic{
-      id: 3,
-      title: "Musical Instruments",
-      description:
-        "Discussion about various musical instruments and their roles in different genres of music.",
-      inserted_at: ~U[2024-07-20 12:00:00Z],
-      updated_at: ~U[2024-07-20 12:00:00Z]
-    },
-    %Cali.Topics.SubTopic{
-      id: 4,
-      title: "Music Theory",
-      description:
-        "An overview of music theory concepts, including scales, harmony, and composition techniques.",
-      inserted_at: ~U[2024-07-20 12:00:00Z],
-      updated_at: ~U[2024-07-20 12:00:00Z]
-    },
-    %Cali.Topics.SubTopic{
-      id: 5,
-      title: "Cultural Influence of Music",
-      description:
-        "Exploring how music influences and is influenced by culture, traditions, and social movements.",
-      inserted_at: ~U[2024-07-20 12:00:00Z],
-      updated_at: ~U[2024-07-20 12:00:00Z]
-    }
-  ]
+  # @dummy_data [
+  #   %Cali.Topics.SubTopic{
+  #     id: 1,
+  #     title: "Music Genres",
+  #     description:
+  #       "A discussion on various music genres including pop, rock, jazz, classical, and hip-hop.",
+  #     inserted_at: ~U[2024-07-20 12:00:00Z],
+  #     updated_at: ~U[2024-07-20 12:00:00Z]
+  #   },
+  #   %Cali.Topics.SubTopic{
+  #     id: 2,
+  #     title: "Famous Artists",
+  #     description:
+  #       "Insights into well-known artists from different genres, including their influence and impact on music.",
+  #     inserted_at: ~U[2024-07-20 12:00:00Z],
+  #     updated_at: ~U[2024-07-20 12:00:00Z]
+  #   }
+  # ]
 
   @impl true
   def mount(_params, _session, socket) do
@@ -117,6 +93,14 @@ defmodule CaliWeb.Topics.Index do
   @impl true
   def handle_event("select-word", %{"word" => word}, socket) do
     dbg(word)
+
+    attrs = %{
+      word: word,
+      translation: "Translation of #{word}",
+      conversation_id: socket.assigns.conversation.id
+    }
+
+    Cali.Words.create_word(attrs)
 
     {:noreply, socket}
   end

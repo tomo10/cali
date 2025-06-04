@@ -1,0 +1,21 @@
+defmodule Cali.Words.Word do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "words" do
+    field :word, :string
+    field :translation, :string
+
+    belongs_to :conversation, Cali.Conversations.Conversation
+
+    timestamps(type: :utc_datetime)
+  end
+
+  @doc false
+  def changeset(word, attrs) do
+    word
+    |> cast(attrs, [:word, :translation, :conversation_id])
+    |> validate_required([:word, :translation, :conversation_id])
+    |> foreign_key_constraint(:conversation_id)
+  end
+end
