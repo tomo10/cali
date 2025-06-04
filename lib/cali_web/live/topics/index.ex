@@ -85,19 +85,19 @@ defmodule CaliWeb.Topics.Index do
         ]
       )
 
-    dbg(conversation)
+    {:ok, created_conversation} =
+      Map.from_struct(conversation) |> Cali.Conversations.create_conversation()
 
-    {:noreply, assign(socket, conversation: conversation)}
+    {:noreply,
+     assign(socket, conversation: conversation, conversation_id: created_conversation.id)}
   end
 
   @impl true
   def handle_event("select-word", %{"word" => word}, socket) do
-    dbg(word)
-
     attrs = %{
       word: word,
       translation: "Translation of #{word}",
-      conversation_id: socket.assigns.conversation.id
+      conversation_id: socket.assigns.conversation_id
     }
 
     Cali.Words.create_word(attrs)

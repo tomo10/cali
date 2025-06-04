@@ -4,6 +4,7 @@ defmodule Cali.Conversations.Conversation do
 
   use Instructor
   alias Cali.Topics.Topic
+  alias Cali.Words.Word
 
   @llm_doc """
   Represents a conversation in the Cali application, which is associated with a specific topic.
@@ -26,11 +27,10 @@ defmodule Cali.Conversations.Conversation do
     field :status, Ecto.Enum, values: [:active, :completed, :archived], default: :active
 
     belongs_to :topic, Topic
+    has_many :words, Word
 
     timestamps(type: :utc_datetime)
   end
-
-  # todo think will want to make native and translation fields optional or an embedded_schema
 
   @doc false
   def changeset(conversation, attrs) do
