@@ -74,7 +74,7 @@ defmodule CaliWeb.Topics.Index do
           %{
             role: "user",
             content:
-              "The subtopics will be 5 examples and a variety based on #{topic.description}."
+              "The subtopics will be 2 examples and a variety based on #{topic.description}."
           }
         ]
       )
@@ -82,9 +82,6 @@ defmodule CaliWeb.Topics.Index do
     {:noreply, assign(socket, sub_topics: topic.sub_topics, topic_title: topic.description)}
   end
 
-  # next thing to do is create conversation using Instructor the sub_topic as trigger
-  # however this might be a little slow and the user has to wait for the conversation to be created
-  # fully before render. might need to use that other library i have in portfolio
   @impl true
   def handle_event("select-sub-topic", %{"id" => id}, socket) do
     sub_topic = Enum.find(socket.assigns.sub_topics, &(&1.id == String.to_integer(id)))
@@ -97,17 +94,18 @@ defmodule CaliWeb.Topics.Index do
         messages: [
           %{
             role: "user",
-            content: "Please give me a conversation for the following topic #{sub_topic.title}."
+            content:
+              "Please give me a conversation for the following topic #{sub_topic.title}. The translation field array should have at least a length of 5 and can be longer if it helps with context."
           },
           %{
             role: "user",
             content:
-              "Set the level of difficulty to 1 / 10 (most basic), the language to Spanish (LATAM), and the status to active."
+              "The translation field is Spanish (LATAM). The native field is English. The translation and native fields should be arrays of strings of equal length."
           },
           %{
             role: "user",
             content:
-              "Keep the content to about 100 words, and split the conversation up into paragraphs where appropriate. Delineate the paragraphs with a newline character."
+              "Create translation with a difficulty of 1 / 10 (v basic speaker). The style of the prose should be like an article in a reputable magazine. Importantly the arrays of strings should flow in a normal coherent manner. Each should follow the last."
           }
         ]
       )

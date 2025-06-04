@@ -6,7 +6,8 @@ defmodule Cali.Repo.Migrations.CreateConversations do
       add :title, :string
       add :difficulty_level, :integer
       add :language, :string
-      add :content, :text
+      add :native, {:array, :text}
+      add :translation, {:array, :text}
       add :status, :string, default: "active"
       add :topic_id, references(:topics, on_delete: :nothing)
 

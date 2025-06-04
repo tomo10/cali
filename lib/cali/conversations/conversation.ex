@@ -12,6 +12,8 @@ defmodule Cali.Conversations.Conversation do
     - `:title` The title of the conversation.
     - `:language` The language of the conversation.
     - `:difficulty_level` The difficulty level of the conversation, ranging from 1 to 10.
+    - `:native` The native language of the conversation, stored as an array of strings each string representing a sentence.
+    - `:translation` The translation of the conversation, stored as an array of strings each string representing a sentence.
     - `:status` The status of the conversation, which can be `:active`, `:completed`, or `:archived`.
   """
 
@@ -19,7 +21,8 @@ defmodule Cali.Conversations.Conversation do
     field :title, :string
     field :language, :string
     field :difficulty_level, :integer
-    field :content, :string
+    field :native, {:array, :string}
+    field :translation, {:array, :string}
     field :status, Ecto.Enum, values: [:active, :completed, :archived], default: :active
 
     belongs_to :topic, Topic

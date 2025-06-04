@@ -42,7 +42,9 @@
 </ul>
 <article :if={@conversation} class="p-4 prose lg:prose-xl bg-base-300">
   <h1>{@conversation.title}</h1>
-  <%= for paragraph <- String.split(@conversation.content, "\n") do %>
-    <p class="tooltip my-2" data-tip="hello tomas">{paragraph}</p>
+  <%= for {sentence, i} <- Enum.with_index(@conversation.translation) do %>
+    <p class="tooltip my-2 cursor-pointer" data-tip={Enum.fetch!(@conversation.native, i)}>
+      {sentence}
+    </p>
   <% end %>
 </article>
