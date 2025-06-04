@@ -49,7 +49,12 @@ defmodule CaliWeb.Topics.Index do
   @impl true
   def mount(_params, _session, socket) do
     {:ok,
-     assign(socket, topics: Cali.Topics.list_topics(), sub_topics: @dummy_data, topic_title: "")}
+     assign(socket,
+       topics: Cali.Topics.list_topics(),
+       sub_topics: @dummy_data,
+       topic_title: "",
+       conversation: nil
+     )}
   end
 
   @impl true
@@ -97,7 +102,12 @@ defmodule CaliWeb.Topics.Index do
           %{
             role: "user",
             content:
-              "Set the level of difficulty to 2, the language to Spanish (LATAM), and the status to active."
+              "Set the level of difficulty to 1 / 10 (most basic), the language to Spanish (LATAM), and the status to active."
+          },
+          %{
+            role: "user",
+            content:
+              "Keep the content to about 100 words, and split the conversation up into paragraphs where appropriate. Delineate the paragraphs with a newline character."
           }
         ]
       )
