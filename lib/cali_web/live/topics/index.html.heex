@@ -1,30 +1,22 @@
-<div class="p-4 bg-base-100">
-  <div class="card w-96 bg-base-200 shadow-xl">
-    <div class="card-body">
-      <h1 class="text-2xl font-bold mb-4">Topics</h1>
-      <ul>
-        <%= for topic <- @topics do %>
-          <button class="btn m-1 bg-primary" phx-click="select-topic" phx-value-id={topic.id}>
-            {topic.title}
-          </button>
-        <% end %>
-      </ul>
-    </div>
+<div class="bg-base-300">
+  <div class="card-body">
+    <h1 class="text-2xl font-bold mb-4">Topics</h1>
+    <ul>
+      <%= for topic <- @topics do %>
+        <button class="btn m-1 bg-primary" phx-click="select-topic" phx-value-id={topic.id}>
+          {topic.title}
+        </button>
+      <% end %>
+    </ul>
   </div>
 </div>
-<ul class="list bg-base-100 rounded-box shadow-md">
+<ul class="list bg-base-300 rounded-box shadow-md">
   <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">{@topic_title}</li>
 
   <li :for={sub_topic <- @sub_topics} class="list-row">
     <div class="text-4xl font-thin opacity-30 tabular-nums">
       {Integer.to_string(sub_topic.id)}
     </div>
-    <%!-- <div>
-      <img
-        class="size-10 rounded-box"
-        src="https://img.daisyui.com/images/profile/demo/1@94.webp"
-      />
-    </div> --%>
     <div class="list-col-grow">
       <div>{sub_topic.title}</div>
       <div class="text-xs uppercase font-semibold opacity-60">{sub_topic.description}</div>
@@ -48,9 +40,9 @@
     </button>
   </li>
 </ul>
-<article :if={@conversation} class="prose lg:prose-xl">
+<article :if={@conversation} class="p-4 prose lg:prose-xl bg-base-300">
   <h1>{@conversation.title}</h1>
   <%= for paragraph <- String.split(@conversation.content, "\n") do %>
-    <p>{paragraph}</p>
+    <p class="tooltip my-2" data-tip="hello tomas">{paragraph}</p>
   <% end %>
 </article>
