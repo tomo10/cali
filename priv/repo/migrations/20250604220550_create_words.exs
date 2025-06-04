@@ -5,6 +5,7 @@ defmodule Cali.Repo.Migrations.CreateWords do
     create table(:words) do
       add :word, :string, null: false
       add :translation, :string, null: false
+      add :sentence, :string, null: false
 
       add :conversation_id, references(:conversations, on_delete: :delete_all), null: false
 

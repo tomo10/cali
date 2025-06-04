@@ -37,7 +37,7 @@ defmodule CaliWeb.Topics.Index do
   def handle_event("select-topic", %{"id" => id}, socket) do
     topic = Cali.Topics.get_topic!(id)
 
-    {:ok, topic} =
+    {:ok, ai_topic} =
       Instructor.chat_completion(
         model: "gpt-4o-mini",
         response_model: Topic,
@@ -54,7 +54,7 @@ defmodule CaliWeb.Topics.Index do
         ]
       )
 
-    {:noreply, assign(socket, sub_topics: topic.sub_topics, topic_title: topic.description)}
+    {:noreply, assign(socket, sub_topics: ai_topic.sub_topics, current_topic: topic)}
   end
 
   @impl true
@@ -85,18 +85,34 @@ defmodule CaliWeb.Topics.Index do
         ]
       )
 
-    {:ok, created_conversation} =
-      Map.from_struct(conversation) |> Cali.Conversations.create_conversation()
+    {:ok, ai_conversation} =
+      Map.from_struct(conversation)
+      |> Map.put(:topic_id, socket.assigns.current_topic.id)
+      |> Cali.Conversations.create_conversation()
 
-    {:noreply,
-     assign(socket, conversation: conversation, conversation_id: created_conversation.id)}
+    {:noreply, assign(socket, conversation: conversation, conversation_id: ai_conversation.id)}
   end
 
   @impl true
   def handle_event("select-word", %{"word" => word}, socket) do
+    {:ok, res} =
+      Instructor.chat_completion(
+        model: "gpt-4o-mini",
+        response_model: Cali.Words.Word,
+        messages: [
+          %{
+            role: "user",
+            content: "Create word object with the correct attributes for the word #{word}."
+          }
+        ]
+      )
+
+    dbg(res)
+
     attrs = %{
-      word: word,
-      translation: "Translation of #{word}",
+      word: res.word,
+      translation: res.translation,
+      sentence: res.sentence,
       conversation_id: socket.assigns.conversation_id
     }
 
