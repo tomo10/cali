@@ -51,7 +51,7 @@ defmodule CaliWeb.Topics.Index do
     {:ok,
      assign(socket,
        topics: Cali.Topics.list_topics(),
-       sub_topics: @dummy_data,
+       sub_topics: [],
        topic_title: "",
        conversation: nil
      )}
