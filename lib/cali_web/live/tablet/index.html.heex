@@ -9,6 +9,17 @@
 >
   <li :for={voice <- @voices} phx-click="select-voice" phx-value-voice={voice}><a>{voice}</a></li>
 </ul>
+<button class="btn" popovertarget="popover-2" style="anchor-name:--anchor-2">
+  Speed
+</button>
+<ul
+  class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm"
+  popover
+  id="popover-2"
+  style="position-anchor:--anchor-2"
+>
+  <li :for={speed <- 1..10} phx-click="select-speed" phx-value-speed={speed}><a>{speed}</a></li>
+</ul>
 <ul class="list bg-base-100 rounded-box shadow-md">
   <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Words added this week</li>
 

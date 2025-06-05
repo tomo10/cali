@@ -35,9 +35,10 @@ Hooks.VoiceHook = {
       console.log("Available voices:", this.voices.forEach(v => console.log(v.name))) 
     }
     
-    this.handleEvent("Voice", ({ text, lang, voiceName }) => {
+    this.handleEvent("Voice", ({ text, lang, voiceName, rate }) => {
       const utterance = new SpeechSynthesisUtterance(text)
-      utterance.lang = lang || "es-ES"     
+      utterance.lang = lang || "es-ES"
+      utterance.rate = rate || 1.0     
 
       if (this.voices && voiceName) {
         const selected = this.voices.find(v => v.name == voiceName)
