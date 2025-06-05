@@ -1,3 +1,14 @@
+<button class="btn" popovertarget="popover-1" style="anchor-name:--anchor-1">
+  Voice
+</button>
+<ul
+  class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm"
+  popover
+  id="popover-1"
+  style="position-anchor:--anchor-1"
+>
+  <li :for={voice <- @voices} phx-click="select-voice" phx-value-voice={voice}><a>{voice}</a></li>
+</ul>
 <ul class="list bg-base-100 rounded-box shadow-md">
   <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Words added this week</li>
 
@@ -13,7 +24,7 @@
         <div class="text-xs uppercase font-semibold pr-4">{word.word}</div>
         <div class="opacity-60">{word.translation}</div>
       </div>
-      <div class="opacity-60">{word.sentence}</div>
+      <div class="opacity-80">{word.sentence}</div>
     </div>
     <button phx-click="speak-word" phx-value-text={word.sentence} class="btn btn-square btn-ghost">
       <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

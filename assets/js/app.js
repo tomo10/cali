@@ -29,9 +29,23 @@ let Hooks = {}
 Hooks.VoiceHook = {
   mounted() {
     console.log("Speak hook mounted")
-    this.handleEvent("Voice", ({ text, lang }) => {
+
+    window.speechSynthesis.onvoiceschanged = () => {
+      this.voices = speechSynthesis.getVoices()
+      console.log("Available voices:", this.voices.forEach(v => console.log(v.name))) 
+    }
+    
+    this.handleEvent("Voice", ({ text, lang, voiceName }) => {
       const utterance = new SpeechSynthesisUtterance(text)
-      utterance.lang = lang || "es-ES" // default to Spanish
+      utterance.lang = lang || "es-ES"     
+
+      if (this.voices && voiceName) {
+        const selected = this.voices.find(v => v.name == voiceName)
+        if (selected) {
+          utterance.voice = selected
+          console.log(utterance.voice, "selected voice")
+        }
+      }
       speechSynthesis.speak(utterance)
     })
   }
