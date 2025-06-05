@@ -8,4 +8,10 @@ defmodule CaliWeb.Tablet.Index do
 
     {:ok, assign(socket, :words, words)}
   end
+
+  @impl true
+  def handle_event("speak-word", %{"text" => text}, socket) do
+    dbg(text)
+    {:noreply, push_event(socket, "Voice", %{text: text, lang: "es-ES"})}
+  end
 end

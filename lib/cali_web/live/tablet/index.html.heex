@@ -15,7 +15,7 @@
       </div>
       <div class="opacity-60">{word.sentence}</div>
     </div>
-    <button class="btn btn-square btn-ghost">
+    <button phx-click="speak-word" phx-value-text={word.sentence} class="btn btn-square btn-ghost">
       <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
           stroke-linejoin="round"
@@ -30,3 +30,4 @@
     </button>
   </li>
 </ul>
+<div id="voice" phx-hook="VoiceHook" />
